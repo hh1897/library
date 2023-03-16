@@ -1,5 +1,6 @@
-// create book
+// create book object
 
+// constructor
 function Book(title, author, pages, read) {
     this.title = title;
     this.author = author;
