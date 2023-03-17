@@ -27,3 +27,21 @@ function addBookToLibrary(book) {
     myLibrary.push(book);
 }
 
+function displayBooks() {
+    for (let i = 0; i <= myLibrary.length; i++) {
+        let book = document.createElement("div");
+        book.id = "book" + i;
+        let newBook = myLibrary[i];
+        let content = document.createTextNode(newBook.info());
+        book.appendChild(content);
+
+        let bookCollection = document.getElementById("bookCollection");
+        bookCollection.appendChild(book);
+    }
+}
+
+let theHobbit = Book("the hobbit", "JRRTolkein", 300, false);
+addBookToLibrary(theHobbit);
+
+
+displayBooks();
