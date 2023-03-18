@@ -28,11 +28,11 @@ function addBookToLibrary(book) {
 }
 
 function displayBooks() {
-    for (let i = 0; i <= myLibrary.length; i++) {
+    for (let i = 0; i < myLibrary.length; i++) {
         let book = document.createElement("div");
         book.id = "book" + i;
-        let newBook = myLibrary[i];
-        let content = document.createTextNode(newBook.info());
+        let newBook = myLibrary[i].info();
+        let content = document.createTextNode(newBook);
         book.appendChild(content);
 
         let bookCollection = document.getElementById("bookCollection");
@@ -40,8 +40,9 @@ function displayBooks() {
     }
 }
 
-let theHobbit = Book("the hobbit", "JRRTolkein", 300, false);
+let theHobbit = new Book("the hobbit", "JRRTolkein", 300, false);
 addBookToLibrary(theHobbit);
-
+let daVinciCode = new Book("da vinci code", "dan brown", 100, true);
+addBookToLibrary(daVinciCode);
 
 displayBooks();
