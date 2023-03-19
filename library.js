@@ -1,4 +1,5 @@
 let myLibrary = [];
+let bookAmount = 1;
 
 
 // Book constructor
@@ -7,6 +8,7 @@ function Book(title, author, pages, read) {
     this.author = author;
     this.pages = pages;
     this.read = read;
+    let bookNumber;
 
     this.info = function() {
         let sentence = title + " by " + author + ", " + pages + " pages, ";
@@ -17,30 +19,31 @@ function Book(title, author, pages, read) {
         else {
             hasRead = "not read yet.";
         }
-        sentence = sentence + hasRead;
+        sentence = sentence + hasRead + bookNumber;
 
         return sentence;
 
     }
+
+    this.setBookNumber = function() {
+        bookNumber = bookAmount;
+    }
 }
 
 function addBookToLibrary(book) {
+    book.setBookNumber();
     myLibrary.push(book);
-}
-
-function displayBooks() {
-    for (let i = 0; i < myLibrary.length; i++) {
-        let book = document.createElement("div");
-        book.id = "book" + i;
-        let newBook = myLibrary[i].info();
-        let content = document.createTextNode(newBook);
-        book.appendChild(content);
-
-        let bookCollection = document.getElementById("bookCollection");
-        bookCollection.appendChild(book);
-    }
+    let newBook = document.createElement("div");
+    let newBookInfo = book.info();
+    let content = document.createTextNode(newBookInfo);
+    newBook.appendChild(content);
+    let bookCollection = document.getElementById("bookCollection");
+    bookCollection.appendChild(newBook);
+    bookAmount++;
 
 }
+
+
 
 function addBookForm() {
     // Create form 
@@ -120,7 +123,7 @@ function addBookForm() {
 }
 
 
-function submit(title, author, pages, readfalse, readtrue) {
+function submit(title, author, pages, readfalse) {
     let read = false;
     if (readfalse.checked == false) {
         read = true;
