@@ -1,5 +1,5 @@
 let myLibrary = [];
-let displayed = false;
+
 
 // Book constructor
 function Book(title, author, pages, read) {
@@ -79,17 +79,18 @@ function addBookForm() {
     form.appendChild(pages);
 
     // Read input True
-    let read = document.createElement("label");
-    read.id = "read";
-    read.innerHTML = "Read: ";
+    let readTrue = document.createElement("label");
+    readTrue.id = "readTrue";
+    readTrue.innerHTML = "Read: ";
     
-    let readInput = document.createElement("input");
-    readInput.id = "readInput";
-    readInput.type = "radio";
-    readInput.value = true;
-    readInput.name = "read";
-    read.appendChild(readInput);
-    form.appendChild(read);
+    let readInputTrue = document.createElement("input");
+    readInputTrue.id = "readInputTrue";
+    readInputTrue.type = "radio";
+    readInputTrue.value = true;
+    // name has to be the same for both radio buttons
+    readInputTrue.name = "read";
+    readTrue.appendChild(readInputTrue);
+    form.appendChild(readTrue);
 
     // Read Input False
     let readFalse = document.createElement("label");
@@ -112,14 +113,18 @@ function addBookForm() {
     // Create submit button
     let submitButton = document.createElement("button");
     submitButton.innerHTML = "Submit";
-    submitButton.addEventListener("click", function() { submit(titleInput.value, authorInput.value, pagesInput.value, readInput.value) });
+    submitButton.addEventListener("click", function() { submit(titleInput.value, authorInput.value, pagesInput.value, readInputFalse, readInputTrue) });
     parent.appendChild(submitButton);
 
 
 }
 
 
-function submit(title, author, pages, read) {
+function submit(title, author, pages, readfalse, readtrue) {
+    let read = false;
+    if (readfalse.checked == false) {
+        read = true;
+    }
     let book = new Book(title, author, pages, read);
     addBookToLibrary(book);
 }
