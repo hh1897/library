@@ -1,4 +1,5 @@
 let myLibrary = [];
+let displayed = false;
 
 // Book constructor
 function Book(title, author, pages, read) {
@@ -10,7 +11,7 @@ function Book(title, author, pages, read) {
     this.info = function() {
         let sentence = title + " by " + author + ", " + pages + " pages, ";
         let hasRead = "";
-        if (document.getElementById('readInput').checked) {
+        if (read == true) {
             hasRead = "has been read.";
         }
         else {
@@ -38,6 +39,7 @@ function displayBooks() {
         let bookCollection = document.getElementById("bookCollection");
         bookCollection.appendChild(book);
     }
+
 }
 
 function addBookForm() {
@@ -76,16 +78,32 @@ function addBookForm() {
     pages.appendChild(pagesInput);
     form.appendChild(pages);
 
-    // Read input
+    // Read input True
     let read = document.createElement("label");
     read.id = "read";
     read.innerHTML = "Read: ";
     
     let readInput = document.createElement("input");
     readInput.id = "readInput";
-    readInput.type = "checkbox";
+    readInput.type = "radio";
+    readInput.value = true;
+    readInput.name = "read";
     read.appendChild(readInput);
     form.appendChild(read);
+
+    // Read Input False
+    let readFalse = document.createElement("label");
+    readFalse.id = "readFalse";
+    readFalse.innerHTML = "Not Read: ";
+
+    let readInputFalse = document.createElement("input");
+    readInputFalse.id = "readInputFalse";
+    readInputFalse.type = "radio";
+    readInputFalse.value = false;
+    readInputFalse.name = "read";
+    readFalse.appendChild(readInputFalse);
+    form.appendChild(readFalse);
+
 
     // Append form to existing HTML div at the end 
     let parent = document.getElementById("formParent");
@@ -97,14 +115,16 @@ function addBookForm() {
     submitButton.addEventListener("click", function() { submit(titleInput.value, authorInput.value, pagesInput.value, readInput.value) });
     parent.appendChild(submitButton);
 
+
 }
 
 
 function submit(title, author, pages, read) {
     let book = new Book(title, author, pages, read);
     addBookToLibrary(book);
-    displayBooks();
 }
+
+
 
 
 
