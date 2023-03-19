@@ -10,7 +10,7 @@ function Book(title, author, pages, read) {
     this.info = function() {
         let sentence = title + " by " + author + ", " + pages + " pages, ";
         let hasRead = "";
-        if (read == true) {
+        if (document.getElementById('readInput').checked) {
             hasRead = "has been read.";
         }
         else {
@@ -72,6 +72,7 @@ function addBookForm() {
     
     let pagesInput = document.createElement("input");
     pagesInput.type = "number";
+    pagesInput.min = 1;
     pages.appendChild(pagesInput);
     form.appendChild(pages);
 
@@ -81,6 +82,7 @@ function addBookForm() {
     read.innerHTML = "Read: ";
     
     let readInput = document.createElement("input");
+    readInput.id = "readInput";
     readInput.type = "checkbox";
     read.appendChild(readInput);
     form.appendChild(read);
@@ -88,15 +90,22 @@ function addBookForm() {
     // Append form to existing HTML div at the end 
     let parent = document.getElementById("formParent");
     parent.appendChild(form);
+
+    // Create submit button
+    let submitButton = document.createElement("button");
+    submitButton.innerHTML = "Submit";
+    submitButton.addEventListener("click", function() { submit(titleInput.value, authorInput.value, pagesInput.value, readInput.value) });
+    parent.appendChild(submitButton);
+
+}
+
+
+function submit(title, author, pages, read) {
+    let book = new Book(title, author, pages, read);
+    addBookToLibrary(book);
+    displayBooks();
 }
 
 
 
 
-
-let theHobbit = new Book("the hobbit", "JRRTolkein", 300, false);
-addBookToLibrary(theHobbit);
-let daVinciCode = new Book("da vinci code", "dan brown", 100, true);
-addBookToLibrary(daVinciCode);
-
-displayBooks();
