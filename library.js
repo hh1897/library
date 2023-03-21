@@ -1,5 +1,6 @@
 let myLibrary = [];
 let bookAmount = 1;
+let bookNumber= 1;
 
 
 // Book constructor
@@ -8,7 +9,7 @@ function Book(title, author, pages, read) {
     this.author = author;
     this.pages = pages;
     this.read = read;
-    let bookNumber;
+    
 
     this.info = function() {
         let sentence = title + " by " + author + ", " + pages + " pages, ";
@@ -28,17 +29,18 @@ function Book(title, author, pages, read) {
     this.setBookNumber = function() {
         bookNumber = bookAmount;
     }
+
+    
 }
 
 function addBookToLibrary(book) {
+
+    // this adds book to library
     book.setBookNumber();
     myLibrary.push(book);
-    let newBook = document.createElement("div");
-    let newBookInfo = book.info();
-    let content = document.createTextNode(newBookInfo);
-    newBook.appendChild(content);
-    let bookCollection = document.getElementById("bookCollection");
-    bookCollection.appendChild(newBook);
+
+    book.setBookNumber();
+    displayBookInTable(book);
     bookAmount++;
 
 }
@@ -132,8 +134,24 @@ function submit(title, author, pages, readfalse) {
     addBookToLibrary(book);
 }
 
+// create function for Book object to show library in table. 
+// Not sure if it needs to be part of the Book object or just on its own
+function displayBookInTable(book) {
+    let table = document.getElementById("libraryTable");
+    let row = table.insertRow();
 
+    let cellIndex = row.insertCell(0)
+    let cellTitle = row.insertCell(1);
+    let cellAuthor = row.insertCell(2);
+    let cellPages = row.insertCell(3);
+    let cellRead = row.insertCell(4);
 
+    cellIndex.innerHTML = bookNumber;
+    cellTitle.innerHTML = book.title;
+    cellAuthor.innerHTML = book.author;
+    cellPages.innerHTML = book.pages;
+    cellRead.innerHTML = book.read;
+}
 
-
-
+let hobbit = new Book("hobbit", "jrrtolkien", 988, true);
+displayBookInTable(hobbit);
