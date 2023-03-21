@@ -35,11 +35,12 @@ function Book(title, author, pages, read) {
 
 function addBookToLibrary(book) {
 
-    // this adds book to library
+    // this adds book to library array
     book.setBookNumber();
     myLibrary.push(book);
 
     book.setBookNumber();
+    // adds book to HTML library table
     displayBookInTable(book);
     bookAmount++;
 
@@ -139,19 +140,37 @@ function submit(title, author, pages, readfalse) {
 function displayBookInTable(book) {
     let table = document.getElementById("libraryTable");
     let row = table.insertRow();
+    
 
     let cellIndex = row.insertCell(0)
     let cellTitle = row.insertCell(1);
     let cellAuthor = row.insertCell(2);
     let cellPages = row.insertCell(3);
     let cellRead = row.insertCell(4);
+    
+    // edit button
+    let cellEdit = row.insertCell(5);
 
+    row.value = book;
     cellIndex.innerHTML = bookNumber;
     cellTitle.innerHTML = book.title;
     cellAuthor.innerHTML = book.author;
     cellPages.innerHTML = book.pages;
     cellRead.innerHTML = book.read;
+
+    // edit button
+    let editButton = document.createElement("BUTTON");
+    let buttonText = document.createTextNode("Edit");
+    editButton.appendChild(buttonText);
+    cellEdit.appendChild(editButton);
+    
+
+    
 }
 
-let hobbit = new Book("hobbit", "jrrtolkien", 988, true);
-displayBookInTable(hobbit);
+function editBook(book) {
+    // edit read status
+    
+    // remove book
+}
+
