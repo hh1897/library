@@ -148,19 +148,19 @@ function displayBookInTable(book) {
     let row = table.insertRow();
     
 
-    let cellIndex = row.insertCell(0)
-    let cellTitle = row.insertCell(1);
-    let cellAuthor = row.insertCell(2);
-    let cellPages = row.insertCell(3);
-    let cellRead = row.insertCell(4);
+    //let cellIndex = row.insertCell(0)
+    let cellTitle = row.insertCell(0);
+    let cellAuthor = row.insertCell(1);
+    let cellPages = row.insertCell(2);
+    let cellRead = row.insertCell(3);
     
     // read status button 
-    let cellReadStatus = row.insertCell(5);
+    let cellReadStatus = row.insertCell(4);
     // delete button
-    let cellDelete = row.insertCell(6);
+    let cellDelete = row.insertCell(5);
 
     
-    cellIndex.innerHTML = book.getBookNumber();
+    //cellIndex.innerHTML = book.getBookNumber();
     cellTitle.innerHTML = book.title;
     cellAuthor.innerHTML = book.author;
     cellPages.innerHTML = book.pages;
@@ -199,6 +199,6 @@ function readStatus(row, book) {
     else {
         book.read = true;
     }
-    row.cells[4].innerHTML = book.read;
+    row.cells[3].innerHTML = book.read;
 }
 
