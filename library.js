@@ -1,7 +1,6 @@
-let myLibrary = [];
+//let myLibrary = [];
 let bookAmount = 1;
 let rowNumber = 1;
-//let bookNumber= 1;
 
 
 // Book constructor
@@ -10,24 +9,8 @@ function Book(title, author, pages, read) {
     this.author = author;
     this.pages = pages;
     this.read = read;
+    this.identifier = title + author;
     let bookNumber;
-    
-
-  /*  this.info = function() {
-        let sentence = title + " by " + author + ", " + pages + " pages, ";
-        let hasRead = "";
-        if (read == true) {
-            hasRead = "has been read.";
-        }
-        else {
-            hasRead = "not read yet.";
-        }
-        sentence = sentence + hasRead + bookNumber;
-
-        return sentence;
-
-    }
-*/
 
     this.setBookNumber = function() {
         bookNumber = bookAmount;
@@ -44,7 +27,7 @@ function addBookToLibrary(book) {
 
     // this adds book to library array
     book.setBookNumber();
-    myLibrary.push(book);
+    //myLibrary.push(book);
 
     book.setBookNumber();
     // adds book to HTML library table
@@ -165,7 +148,16 @@ function displayBookInTable(book) {
     cellTitle.innerHTML = book.title;
     cellAuthor.innerHTML = book.author;
     cellPages.innerHTML = book.pages;
-    cellRead.innerHTML = book.read;
+
+    // Set read status to yes or no, instead of true or false
+    let isRead;
+    if (book.read == true) {
+        isRead = "Yes";
+    }
+    else {
+        isRead = "No";
+    }
+    cellRead.innerHTML = isRead;
 
     // read status button
     let statusButton = document.createElement("BUTTON");
@@ -186,19 +178,26 @@ function displayBookInTable(book) {
     
 }
 
-function deleteBook(row, book) {
-    let i = document.getElementById(row.id);
-    i.remove();
+function deleteBook(row) {
+    let rowForDeletion = document.getElementById(row.id);
+    rowForDeletion.remove();
+
+    // remove book from library array? I don't use the array though
 }
 
 // change read status
 function readStatus(row, book) {
+    let bookStatus;
     if (book.read == true) {
         book.read = false;
+        bookStatus = "No";
     }
     else {
         book.read = true;
+        bookStatus = "Yes";
     }
-    row.cells[3].innerHTML = book.read;
+    row.cells[3].innerHTML = bookStatus;
 }
+
+
 
