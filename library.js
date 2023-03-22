@@ -1,5 +1,6 @@
 let myLibrary = [];
 let bookAmount = 1;
+let rowNumber = 1;
 //let bookNumber= 1;
 
 
@@ -146,7 +147,7 @@ function submit(title, author, pages, readfalse) {
 function displayBookInTable(book) {
     let table = document.getElementById("libraryTable");
     let row = table.insertRow();
-    
+    row.id = "row" + rowNumber;
 
     //let cellIndex = row.insertCell(0)
     let cellTitle = row.insertCell(0);
@@ -176,19 +177,18 @@ function displayBookInTable(book) {
 
     // delete button
     let deleteButton = document.createElement("BUTTON");
-    deleteButton.addEventListener("click", function() {deleteBook(book)});
+    deleteButton.addEventListener("click", function() {deleteBook(row, book)});
     let buttonText = document.createTextNode("Delete");
     deleteButton.appendChild(buttonText);
     cellDelete.appendChild(deleteButton);
     
-
+    rowNumber++;
     
 }
 
-function deleteBook(book) {
-    let table = document.getElementById("libraryTable");
-    let i = book.getBookNumber();
-    table.deleteRow(i);
+function deleteBook(row, book) {
+    let i = document.getElementById(row.id);
+    i.remove();
 }
 
 // change read status
