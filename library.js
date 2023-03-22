@@ -1,6 +1,6 @@
 let myLibrary = [];
 let bookAmount = 1;
-let bookNumber= 1;
+//let bookNumber= 1;
 
 
 // Book constructor
@@ -9,9 +9,10 @@ function Book(title, author, pages, read) {
     this.author = author;
     this.pages = pages;
     this.read = read;
+    let bookNumber;
     
 
-    this.info = function() {
+  /*  this.info = function() {
         let sentence = title + " by " + author + ", " + pages + " pages, ";
         let hasRead = "";
         if (read == true) {
@@ -25,11 +26,16 @@ function Book(title, author, pages, read) {
         return sentence;
 
     }
+*/
 
     this.setBookNumber = function() {
         bookNumber = bookAmount;
     }
 
+    this.getBookNumber = function() {
+        return bookNumber;
+    }
+   
     
 }
 
@@ -153,8 +159,8 @@ function displayBookInTable(book) {
     // delete button
     let cellDelete = row.insertCell(6);
 
-    row.value = book;
-    cellIndex.innerHTML = bookNumber;
+    
+    cellIndex.innerHTML = book.getBookNumber();
     cellTitle.innerHTML = book.title;
     cellAuthor.innerHTML = book.author;
     cellPages.innerHTML = book.pages;
@@ -180,9 +186,9 @@ function displayBookInTable(book) {
 }
 
 function deleteBook(book) {
-    // edit read status
-    
-    // remove book
+    let table = document.getElementById("libraryTable");
+    let i = book.getBookNumber();
+    table.deleteRow(i);
 }
 
 // change read status
