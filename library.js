@@ -148,8 +148,10 @@ function displayBookInTable(book) {
     let cellPages = row.insertCell(3);
     let cellRead = row.insertCell(4);
     
-    // edit button
-    let cellEdit = row.insertCell(5);
+    // read status button 
+    let cellReadStatus = row.insertCell(5);
+    // delete button
+    let cellDelete = row.insertCell(6);
 
     row.value = book;
     cellIndex.innerHTML = bookNumber;
@@ -158,19 +160,39 @@ function displayBookInTable(book) {
     cellPages.innerHTML = book.pages;
     cellRead.innerHTML = book.read;
 
-    // edit button
-    let editButton = document.createElement("BUTTON");
-    let buttonText = document.createTextNode("Edit");
-    editButton.appendChild(buttonText);
-    cellEdit.appendChild(editButton);
+    // read status button
+    let statusButton = document.createElement("BUTTON");
+    statusButton.addEventListener("click", function() {readStatus(row, book)});
+    let statusText = document.createTextNode("Change Read Status");
+    statusButton.appendChild(statusText);
+    cellReadStatus.appendChild(statusButton);
+
+
+    // delete button
+    let deleteButton = document.createElement("BUTTON");
+    deleteButton.addEventListener("click", function() {deleteBook(book)});
+    let buttonText = document.createTextNode("Delete");
+    deleteButton.appendChild(buttonText);
+    cellDelete.appendChild(deleteButton);
     
 
     
 }
 
-function editBook(book) {
+function deleteBook(book) {
     // edit read status
     
     // remove book
+}
+
+// change read status
+function readStatus(row, book) {
+    if (book.read == true) {
+        book.read = false;
+    }
+    else {
+        book.read = true;
+    }
+    row.cells[4].innerHTML = book.read;
 }
 
