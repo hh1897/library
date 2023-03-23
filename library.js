@@ -112,7 +112,11 @@ function addBookForm() {
     submitButton.addEventListener("click", function() { submit(titleInput.value, authorInput.value, pagesInput.value, readInputFalse, readInputTrue) });
     parent.appendChild(submitButton);
 
-
+    // Create Clear button
+    let clearButton = document.createElement("button");
+    clearButton.innerHTML = "Clear";
+    clearButton.addEventListener("click", function() { clear() });
+    parent.appendChild(clearButton);
 }
 
 
@@ -123,6 +127,11 @@ function submit(title, author, pages, readfalse) {
     }
     let book = new Book(title, author, pages, read);
     addBookToLibrary(book);
+}
+
+function clear() {
+    let form = document.getElementById("bookForm");
+    form.reset();
 }
 
 // create function for Book object to show library in table. 
