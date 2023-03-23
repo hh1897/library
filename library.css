@@ -1,4 +1,36 @@
 
+
+body {
+    background-color: #f3f3f7;
+    color: #2d2d32;
+    font-family: "Lexend Deca";
+    
+}
+h1 {
+    display: flex;
+    justify-content: center;
+}
+#libraryTable {
+    width: 38rem;
+    border-collapse: collapse;
+    display: flex;
+    
+}
+#Headers {
+    background-color: #c4c4da;
+    font-size: 1.5rem;
+    
+    
+}
+th {
+    
+}
+td {
+    background-color: #b4dfe5;
+    
+}
+
+
 form {
     display: flex;
     flex-direction: column;
