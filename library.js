@@ -39,6 +39,7 @@ function addBookToLibrary(book) {
 
 
 function addBookForm() {
+    
     // Create form 
     let form = document.createElement("FORM");
     form.id = "bookForm";
@@ -117,6 +118,10 @@ function addBookForm() {
     clearButton.innerHTML = "Clear";
     clearButton.addEventListener("click", function() { clear() });
     parent.appendChild(clearButton);
+
+    // disable addBook Button
+    let bookButton = document.getElementById("addBook");
+    bookButton.disabled = true;
 }
 
 
