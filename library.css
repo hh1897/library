@@ -10,6 +10,8 @@ h1 {
     display: flex;
     justify-content: center;
 }
+
+/* library table */
 #libraryTable {
     width: 38rem;
     border-collapse: collapse;
@@ -30,8 +32,20 @@ td {
     
 }
 
-
-form {
+/* form styling */
+#bookForm {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-style: solid;
+    border-color: #359caa;
+    background-color: #fbffff;
+    width: 18rem;
+    height: 8rem;
+    padding: 1rem;
+}
+#submitButton {
+    display: flex;
+    justify-content: center;
 }
