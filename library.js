@@ -109,6 +109,7 @@ function addBookForm() {
 
     // Create submit button
     let submitButton = document.createElement("button");
+    submitButton.id = "submitButton";
     submitButton.innerHTML = "Submit";
     submitButton.addEventListener("click", function() { submit(titleInput.value, authorInput.value, pagesInput.value, readInputFalse, readInputTrue) });
     parent.appendChild(submitButton);
