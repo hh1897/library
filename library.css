@@ -26,10 +26,11 @@ h1 {
 }
 th {
     
+    padding-right: 3rem;
 }
-td {
+td:not(#cellDelete){
     background-color: #b4dfe5;
-    
+    padding-right: 3rem;
 }
 
 /* form styling */
@@ -48,4 +49,23 @@ td {
 #submitButton {
     display: flex;
     justify-content: center;
+}
+button {
+    background-color: #c4c4da;
+    border: none;
+}
+button:hover:not([disabled]) {
+    background-color: #359caa;
+    color: #fbffff;
+    
+    
+}
+
+#editDiv {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    width: 5rem;
+    margin: 1rem;
+    border: 1rem;
 }

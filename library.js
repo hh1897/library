@@ -154,9 +154,9 @@ function displayBookInTable(book) {
     let cellRead = row.insertCell(3);
     
     // read status button 
-    let cellReadStatus = row.insertCell(4);
+    //let cellReadStatus = row.insertCell(4);
     // delete button
-    let cellDelete = row.insertCell(5);
+    //let cellDelete = row.insertCell(5);
 
     
     //cellIndex.innerHTML = book.getBookNumber();
@@ -179,7 +179,7 @@ function displayBookInTable(book) {
     statusButton.addEventListener("click", function() {readStatus(row, book)});
     let statusText = document.createTextNode("Change Read Status");
     statusButton.appendChild(statusText);
-    cellReadStatus.appendChild(statusButton);
+    //cellReadStatus.appendChild(statusButton);
 
 
     // delete button
@@ -187,18 +187,39 @@ function displayBookInTable(book) {
     deleteButton.addEventListener("click", function() {deleteBook(row, book)});
     let buttonText = document.createTextNode("Delete");
     deleteButton.appendChild(buttonText);
-    cellDelete.appendChild(deleteButton);
-    
+    //cellDelete.appendChild(deleteButton);
+   // cellDelete.id = "cellDelete";
     rowNumber++;
     
+    // edit button
+    let editButton = document.createElement("BUTTON");
+    editButton.addEventListener("click", function() {edit(statusButton, deleteButton, book.title)});
+    let editText = document.createTextNode("Edit");
+    editButton.appendChild(editText);
+    let cellEdit = row.insertCell(4);
+    cellEdit.appendChild(editButton);
+}
+
+function edit(statusButton, deleteButton, bookTitle) {
+    let editDiv = document.createElement("div");
+    editDiv.id = "editDiv";
+    let editTitle = document.createTextNode("Edit " + bookTitle);
+    editDiv.appendChild(editTitle);
+    editDiv.appendChild(statusButton);
+    editDiv.appendChild(deleteButton);
+    document.body.appendChild(editDiv);
 }
 
 function deleteBook(row) {
     let rowForDeletion = document.getElementById(row.id);
-    rowForDeletion.remove();
-
-    // remove book from library array? I don't use the array though
+    //double check they want to delete row
+    let text = "Are you sure you want to delete this book?";
+    if (confirm(text) == true) {
+        rowForDeletion.remove();
+    }
+  
 }
+
 
 // change read status
 function readStatus(row, book) {
