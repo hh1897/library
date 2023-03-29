@@ -28,7 +28,7 @@ th {
     
     padding-right: 3rem;
 }
-td:not(#cellDelete){
+td:not(#cellEdit){
     background-color: #b4dfe5;
     padding-right: 3rem;
 }
@@ -68,4 +68,6 @@ button:hover:not([disabled]) {
     width: 5rem;
     margin: 1rem;
     border: 1rem;
+    background-color: #fbffff;
+    position: absolute;
 }
