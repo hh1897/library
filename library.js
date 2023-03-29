@@ -195,12 +195,15 @@ function displayBookInTable(book) {
     let editButton = document.createElement("BUTTON");
     editButton.addEventListener("click", function() {edit(statusButton, deleteButton, book.title)});
     let editText = document.createTextNode("Edit");
+    editButton.className = "editButton";
     editButton.appendChild(editText);
     let cellEdit = row.insertCell(4);
+    cellEdit.id = "cellEdit";
     cellEdit.appendChild(editButton);
 }
 
 function edit(statusButton, deleteButton, bookTitle) {
+    
     let editDiv = document.createElement("div");
     editDiv.id = "editDiv";
     let editTitle = document.createTextNode("Edit " + bookTitle);
@@ -208,18 +211,52 @@ function edit(statusButton, deleteButton, bookTitle) {
     editDiv.appendChild(statusButton);
     editDiv.appendChild(deleteButton);
     document.body.appendChild(editDiv);
-}
 
-function deleteBook(row) {
+    //create and append done button
+    let doneButton = document.createElement("BUTTON");
+    doneButton.id = "doneButton";
+    let doneText = document.createTextNode("Done");
+    doneButton.appendChild(doneText);
+    doneButton.addEventListener("click", function() {closeEdit()});
+    editDiv.appendChild(doneButton);
+    disableEditButtons();
+    
+    
+}
+function disableEditButtons() {
+    let editButtons = document.getElementsByClassName("editButton");
+    //editButtons.disabled = true;
+    for(let i = 0; i < editButtons.length; i++){
+        editButtons[i].disabled = true;
+    }
+    
+}
+function enableEditButtons() {
+    let editButtons = document.getElementsByClassName("editButton");
+    //editButtons.disabled = true;
+    for(let i = 0; i < editButtons.length; i++){
+        editButtons[i].disabled = false;
+    }
+}
+function deleteBook(row, book) {
     let rowForDeletion = document.getElementById(row.id);
     //double check they want to delete row
-    let text = "Are you sure you want to delete this book?";
+    let text = "Are you sure you want to delete " + book.title + "?";
     if (confirm(text) == true) {
         rowForDeletion.remove();
+        let edit = document.getElementById("editDiv");
+        edit.remove();
     }
+    enableEditButtons();
   
 }
-
+function closeEdit() {
+    let edit = document.getElementById("editDiv");
+    edit.remove();
+    enableEditButtons();
+    //let editButtons = document.getElementsByClassName("editButton");
+    //editButtons.disabled = false;
+}
 
 // change read status
 function readStatus(row, book) {
