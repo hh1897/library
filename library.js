@@ -130,8 +130,9 @@ function addBookForm() {
     form.appendChild(closeButton);
 
     // disable addBook Button
-    let bookButton = document.getElementById("addBook");
-    bookButton.disabled = true;
+    //let bookButton = document.getElementById("addBook");
+    //bookButton.disabled = true;
+    disableAddBook();
 }
 
 
@@ -244,9 +245,9 @@ function edit(statusButton, deleteButton, bookTitle, bookAuthor) {
     editDiv.appendChild(doneButton);
     disableEditButtons();
 
-    let bookButton = document.getElementById("addBook");
-    bookButton.disabled = true;
-    
+    //let bookButton = document.getElementById("addBook");
+    //bookButton.disabled = true;
+    disableAddBook();
     
 }
 function disableEditButtons() {
@@ -274,18 +275,18 @@ function deleteBook(row, book) {
         edit.remove();
     }
     enableEditButtons();
-    let bookButton = document.getElementById("addBook");
-    bookButton.disabled = false;
+    //let bookButton = document.getElementById("addBook");
+    //bookButton.disabled = false;
+    enableAddBook();
   
 }
 function closeEdit() {
     let edit = document.getElementById("editDiv");
     edit.remove();
     enableEditButtons();
-    let bookButton = document.getElementById("addBook");
-    bookButton.disabled = false;
-    //let editButtons = document.getElementsByClassName("editButton");
-    //editButtons.disabled = false;
+    //let bookButton = document.getElementById("addBook");
+    //bookButton.disabled = false;
+    enableAddBook();
 }
 
 function closeForm() {
@@ -293,9 +294,20 @@ function closeForm() {
     form.remove();
     let clearButton = document.getElementById("clearButton");
     clearButton.remove();
+    //let bookButton = document.getElementById("addBook");
+    //bookButton.disabled = false;
+    enableAddBook();
+}
+
+function disableAddBook() {
+    let bookButton = document.getElementById("addBook");
+    bookButton.disabled = true;
+}
+function enableAddBook() {
     let bookButton = document.getElementById("addBook");
     bookButton.disabled = false;
 }
+
 
 // change read status
 function readStatus(row, book) {
