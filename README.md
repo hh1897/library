@@ -1,4 +1,4 @@
-# library
+# Library
 
 A library table with a form to submit new books. Each book must include a title, author, page amount and read status.
 There are two edit options available: change read status and delete. 
