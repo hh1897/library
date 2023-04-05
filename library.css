@@ -1,18 +1,16 @@
 
-
 body {
     background-color: #f3f3f7;
     color: #2d2d32;
-    font-family: "Lexend Deca";
-    
-    
+    font-family: "Lexend Deca", Arial, Helvetica, sans-serif;
 }
+/*Page Title*/
 h1 {
     display: flex;
     justify-content: flex-start;
 }
 
-/* library table */
+/* Library table */
 #libraryTable {
     width: 40%;
     max-width: 40%;
@@ -25,11 +23,8 @@ h1 {
 #Headers {
     background-color: #c4c4da;
     font-size: 1.5rem;
-    
-    
 }
 th {
-    
     padding-right: 3rem;
     border: solid;
     border-color: #7070e6;
@@ -38,15 +33,10 @@ td:not(#cellEdit){
     background-color: #b4dfe5;
     padding-right: 3rem;
     border-style: solid solid none solid;
-    border-color: #7070e6;
-    
-}
-.cellRead {
-    border-style: solid none none none;
+    border-color: #7070e6; 
 }
 
-
-/* form styling */
+/* Book form styling */
 #bookForm {
     display: flex;
     flex-direction: column;
@@ -73,15 +63,15 @@ button:not(.editButtons) {
 }
 button:hover:not([disabled]) {
     background-color: #359caa;
-    color: #fbffff;
-    
-    
+    color: #fbffff; 
 }
 #formParent {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
+
+/* Edit Div styling*/
 #editDiv {
     padding: 1rem;
     display: flex;
@@ -97,6 +87,8 @@ button:hover:not([disabled]) {
     overflow-wrap: break-word;
     
 }
+
+/* Buttons */
 .editButtons {
     margin-top: 1rem;
     border: none;
