@@ -112,13 +112,21 @@ function addBookForm() {
     submitButton.id = "submitButton";
     submitButton.innerHTML = "Submit";
     submitButton.addEventListener("click", function() { submit(titleInput.value, authorInput.value, pagesInput.value, readInputFalse, readInputTrue) });
-    parent.appendChild(submitButton);
+    form.appendChild(submitButton);
 
     // Create Clear button
     let clearButton = document.createElement("button");
-    clearButton.innerHTML = "Clear";
+    clearButton.innerHTML = "Clear Form";
+    clearButton.id = "clearButton";
     clearButton.addEventListener("click", function() { clear() });
     parent.appendChild(clearButton);
+
+    // close button
+    let closeButton = document.createElement("button");
+    closeButton.innerHTML = "Close";
+    closeButton.id = "closeButton";
+    closeButton.addEventListener("click", function() { closeForm() });
+    form.appendChild(closeButton);
 
     // disable addBook Button
     let bookButton = document.getElementById("addBook");
@@ -133,11 +141,17 @@ function submit(title, author, pages, readfalse) {
     }
     let book = new Book(title, author, pages, read);
     addBookToLibrary(book);
+    document.getElementById("bookForm").remove();
+    
+    let bookButton = document.getElementById("addBook");
+    document.getElementById("clearButton").remove();
+    bookButton.disabled = false;
 }
 
 function clear() {
     let form = document.getElementById("bookForm");
     form.reset();
+    return false;
 }
 
 // create function for Book object to show library in table. 
@@ -153,16 +167,15 @@ function displayBookInTable(book) {
     let cellPages = row.insertCell(2);
     let cellRead = row.insertCell(3);
     
-    // read status button 
-    //let cellReadStatus = row.insertCell(4);
-    // delete button
-    //let cellDelete = row.insertCell(5);
-
-    
-    //cellIndex.innerHTML = book.getBookNumber();
+   
     cellTitle.innerHTML = book.title;
     cellAuthor.innerHTML = book.author;
     cellPages.innerHTML = book.pages;
+
+    cellTitle.classList.add("cellTitle");
+    cellAuthor.classList.add("cellAuthor");
+    cellPages.classList.add("cellPages");
+    cellRead.classList.add("cellRead");
 
     // Set read status to yes or no, instead of true or false
     let isRead;
@@ -178,6 +191,7 @@ function displayBookInTable(book) {
     let statusButton = document.createElement("BUTTON");
     statusButton.addEventListener("click", function() {readStatus(row, book)});
     let statusText = document.createTextNode("Change Read Status");
+    statusButton.classList.add("editButtons");
     statusButton.appendChild(statusText);
     //cellReadStatus.appendChild(statusButton);
 
@@ -186,6 +200,7 @@ function displayBookInTable(book) {
     let deleteButton = document.createElement("BUTTON");
     deleteButton.addEventListener("click", function() {deleteBook(row, book)});
     let buttonText = document.createTextNode("Delete");
+    deleteButton.classList.add("editButtons");
     deleteButton.appendChild(buttonText);
     //cellDelete.appendChild(deleteButton);
    // cellDelete.id = "cellDelete";
@@ -193,7 +208,7 @@ function displayBookInTable(book) {
     
     // edit button
     let editButton = document.createElement("BUTTON");
-    editButton.addEventListener("click", function() {edit(statusButton, deleteButton, book.title)});
+    editButton.addEventListener("click", function() {edit(statusButton, deleteButton, book.title, book.author)});
     let editText = document.createTextNode("Edit");
     editButton.className = "editButton";
     editButton.appendChild(editText);
@@ -202,11 +217,11 @@ function displayBookInTable(book) {
     cellEdit.appendChild(editButton);
 }
 
-function edit(statusButton, deleteButton, bookTitle) {
+function edit(statusButton, deleteButton, bookTitle, bookAuthor) {
     
     let editDiv = document.createElement("div");
     editDiv.id = "editDiv";
-    let editTitle = document.createTextNode("Edit " + bookTitle);
+    let editTitle = document.createTextNode('Edit "' + bookTitle + '" by '+ bookAuthor);
     editDiv.appendChild(editTitle);
     editDiv.appendChild(statusButton);
     editDiv.appendChild(deleteButton);
@@ -216,10 +231,14 @@ function edit(statusButton, deleteButton, bookTitle) {
     let doneButton = document.createElement("BUTTON");
     doneButton.id = "doneButton";
     let doneText = document.createTextNode("Done");
+    doneButton.classList.add("editButtons");
     doneButton.appendChild(doneText);
     doneButton.addEventListener("click", function() {closeEdit()});
     editDiv.appendChild(doneButton);
     disableEditButtons();
+
+    let bookButton = document.getElementById("addBook");
+    bookButton.disabled = true;
     
     
 }
@@ -241,21 +260,34 @@ function enableEditButtons() {
 function deleteBook(row, book) {
     let rowForDeletion = document.getElementById(row.id);
     //double check they want to delete row
-    let text = "Are you sure you want to delete " + book.title + "?";
+    let text = 'Are you sure you want to delete "' + book.title + '"?';
     if (confirm(text) == true) {
         rowForDeletion.remove();
         let edit = document.getElementById("editDiv");
         edit.remove();
     }
     enableEditButtons();
+    let bookButton = document.getElementById("addBook");
+    bookButton.disabled = false;
   
 }
 function closeEdit() {
     let edit = document.getElementById("editDiv");
     edit.remove();
     enableEditButtons();
+    let bookButton = document.getElementById("addBook");
+    bookButton.disabled = false;
     //let editButtons = document.getElementsByClassName("editButton");
     //editButtons.disabled = false;
+}
+
+function closeForm() {
+    let form = document.getElementById("bookForm");
+    form.remove();
+    let clearButton = document.getElementById("clearButton");
+    clearButton.remove();
+    let bookButton = document.getElementById("addBook");
+    bookButton.disabled = false;
 }
 
 // change read status
