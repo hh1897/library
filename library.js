@@ -1,4 +1,3 @@
-//let myLibrary = [];
 let bookAmount = 1;
 let rowNumber = 1;
 
@@ -18,25 +17,15 @@ function Book(title, author, pages, read) {
 
     this.getBookNumber = function() {
         return bookNumber;
-    }
-   
-    
+    }   
 }
 
 function addBookToLibrary(book) {
-
-    // this adds book to library array
     book.setBookNumber();
-    //myLibrary.push(book);
-
-    book.setBookNumber();
-    // adds book to HTML library table
+    // Adds book to HTML library table
     displayBookInTable(book);
     bookAmount++;
-
 }
-
-
 
 function addBookForm() {
     
@@ -68,7 +57,7 @@ function addBookForm() {
     let pages = document.createElement("label");
     pages.id = "pages";
     pages.innerHTML = "Pages: ";
-    
+
     let pagesInput = document.createElement("input");
     pagesInput.type = "number";
     pagesInput.min = 1;
@@ -79,12 +68,11 @@ function addBookForm() {
     let readTrue = document.createElement("label");
     readTrue.id = "readTrue";
     readTrue.innerHTML = "Read: ";
-    
     let readInputTrue = document.createElement("input");
     readInputTrue.id = "readInputTrue";
     readInputTrue.type = "radio";
     readInputTrue.value = true;
-    // name has to be the same for both radio buttons
+    // Name has to be the same for both radio buttons
     readInputTrue.name = "read";
     readTrue.appendChild(readInputTrue);
     form.appendChild(readTrue);
@@ -93,7 +81,6 @@ function addBookForm() {
     let readFalse = document.createElement("label");
     readFalse.id = "readFalse";
     readFalse.innerHTML = "Not Read: ";
-
     let readInputFalse = document.createElement("input");
     readInputFalse.id = "readInputFalse";
     readInputFalse.type = "radio";
@@ -101,7 +88,6 @@ function addBookForm() {
     readInputFalse.name = "read";
     readFalse.appendChild(readInputFalse);
     form.appendChild(readFalse);
-
 
     // Append form to existing HTML div at the end 
     let parent = document.getElementById("formParent");
@@ -122,16 +108,13 @@ function addBookForm() {
     clearButton.addEventListener("click", function() { clear() });
     parent.appendChild(clearButton);
 
-    // close button
+    // Close button
     let closeButton = document.createElement("button");
     closeButton.innerHTML = "Close";
     closeButton.id = "closeButton";
     closeButton.addEventListener("click", function() { closeForm() });
     form.appendChild(closeButton);
 
-    // disable addBook Button
-    //let bookButton = document.getElementById("addBook");
-    //bookButton.disabled = true;
     disableAddBook();
 }
 
@@ -141,18 +124,18 @@ function submit(title, author, pages, readFalse, readTrue) {
     if (readFalse.checked == false) {
         read = true;
     }
+    // Check all fields have been entered
     if ((title == "") || (author == "") || (readFalse.checked == false && readTrue.checked == false) || (pages == "")) {
         alert("All fields must be entered.");
         
     }
     else {
+        // Add book to library and remove book form
         let book = new Book(title, author, pages, read);
         addBookToLibrary(book);
         document.getElementById("bookForm").remove();
-        
-        let bookButton = document.getElementById("addBook");
         document.getElementById("clearButton").remove();
-        bookButton.disabled = false;
+        enableAddBook();
     }
 }
 
@@ -162,19 +145,18 @@ function clear() {
     return false;
 }
 
-// create function for Book object to show library in table. 
-// Not sure if it needs to be part of the Book object or just on its own
+// Add Book to the Library
 function displayBookInTable(book) {
+    // Create new row
     let table = document.getElementById("libraryTable");
     let row = table.insertRow();
     row.id = "row" + rowNumber;
 
-    //let cellIndex = row.insertCell(0)
+    // Create table data cells
     let cellTitle = row.insertCell(0);
     let cellAuthor = row.insertCell(1);
     let cellPages = row.insertCell(2);
     let cellRead = row.insertCell(3);
-    
    
     cellTitle.innerHTML = book.title;
     cellAuthor.innerHTML = book.author;
@@ -195,26 +177,22 @@ function displayBookInTable(book) {
     }
     cellRead.innerHTML = isRead;
 
-    // read status button
+    // Read status button
     let statusButton = document.createElement("BUTTON");
     statusButton.addEventListener("click", function() {readStatus(row, book)});
     let statusText = document.createTextNode("Change Read Status");
     statusButton.classList.add("editButtons");
     statusButton.appendChild(statusText);
-    //cellReadStatus.appendChild(statusButton);
 
-
-    // delete button
+    // Delete button
     let deleteButton = document.createElement("BUTTON");
     deleteButton.addEventListener("click", function() {deleteBook(row, book)});
     let buttonText = document.createTextNode("Delete");
     deleteButton.classList.add("editButtons");
     deleteButton.appendChild(buttonText);
-    //cellDelete.appendChild(deleteButton);
-   // cellDelete.id = "cellDelete";
     rowNumber++;
     
-    // edit button
+    // Edit button
     let editButton = document.createElement("BUTTON");
     editButton.addEventListener("click", function() {edit(statusButton, deleteButton, book.title, book.author)});
     let editText = document.createTextNode("Edit");
@@ -225,6 +203,8 @@ function displayBookInTable(book) {
     cellEdit.appendChild(editButton);
 }
 
+
+// Create Edit Div 
 function edit(statusButton, deleteButton, bookTitle, bookAuthor) {
     
     let editDiv = document.createElement("div");
@@ -235,7 +215,7 @@ function edit(statusButton, deleteButton, bookTitle, bookAuthor) {
     editDiv.appendChild(deleteButton);
     document.body.appendChild(editDiv);
 
-    //create and append done button
+    // Create and append done button
     let doneButton = document.createElement("BUTTON");
     doneButton.id = "doneButton";
     let doneText = document.createTextNode("Done");
@@ -244,30 +224,24 @@ function edit(statusButton, deleteButton, bookTitle, bookAuthor) {
     doneButton.addEventListener("click", function() {closeEdit()});
     editDiv.appendChild(doneButton);
     disableEditButtons();
-
-    //let bookButton = document.getElementById("addBook");
-    //bookButton.disabled = true;
     disableAddBook();
     
 }
 function disableEditButtons() {
     let editButtons = document.getElementsByClassName("editButton");
-    //editButtons.disabled = true;
     for(let i = 0; i < editButtons.length; i++){
         editButtons[i].disabled = true;
     }
-    
 }
 function enableEditButtons() {
     let editButtons = document.getElementsByClassName("editButton");
-    //editButtons.disabled = true;
     for(let i = 0; i < editButtons.length; i++){
         editButtons[i].disabled = false;
     }
 }
 function deleteBook(row, book) {
     let rowForDeletion = document.getElementById(row.id);
-    //double check they want to delete row
+    // Double check row deletion
     let text = 'Are you sure you want to delete "' + book.title + '"?';
     if (confirm(text) == true) {
         rowForDeletion.remove();
@@ -275,8 +249,6 @@ function deleteBook(row, book) {
         edit.remove();
     }
     enableEditButtons();
-    //let bookButton = document.getElementById("addBook");
-    //bookButton.disabled = false;
     enableAddBook();
   
 }
@@ -284,8 +256,6 @@ function closeEdit() {
     let edit = document.getElementById("editDiv");
     edit.remove();
     enableEditButtons();
-    //let bookButton = document.getElementById("addBook");
-    //bookButton.disabled = false;
     enableAddBook();
 }
 
@@ -294,8 +264,6 @@ function closeForm() {
     form.remove();
     let clearButton = document.getElementById("clearButton");
     clearButton.remove();
-    //let bookButton = document.getElementById("addBook");
-    //bookButton.disabled = false;
     enableAddBook();
 }
 
@@ -309,7 +277,7 @@ function enableAddBook() {
 }
 
 
-// change read status
+// Change read status
 function readStatus(row, book) {
     let bookStatus;
     if (book.read == true) {
@@ -322,6 +290,3 @@ function readStatus(row, book) {
     }
     row.cells[3].innerHTML = bookStatus;
 }
-
-
-
