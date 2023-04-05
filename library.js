@@ -111,6 +111,7 @@ function addBookForm() {
     let submitButton = document.createElement("button");
     submitButton.id = "submitButton";
     submitButton.innerHTML = "Submit";
+    submitButton.type = "button";
     submitButton.addEventListener("click", function() { submit(titleInput.value, authorInput.value, pagesInput.value, readInputFalse, readInputTrue) });
     form.appendChild(submitButton);
 
@@ -134,18 +135,24 @@ function addBookForm() {
 }
 
 
-function submit(title, author, pages, readfalse) {
+function submit(title, author, pages, readFalse, readTrue) {
     let read = false;
-    if (readfalse.checked == false) {
+    if (readFalse.checked == false) {
         read = true;
     }
-    let book = new Book(title, author, pages, read);
-    addBookToLibrary(book);
-    document.getElementById("bookForm").remove();
-    
-    let bookButton = document.getElementById("addBook");
-    document.getElementById("clearButton").remove();
-    bookButton.disabled = false;
+    if ((title == "") || (author == "") || (readFalse.checked == false && readTrue.checked == false) || (pages == "")) {
+        alert("All fields must be entered.");
+        
+    }
+    else {
+        let book = new Book(title, author, pages, read);
+        addBookToLibrary(book);
+        document.getElementById("bookForm").remove();
+        
+        let bookButton = document.getElementById("addBook");
+        document.getElementById("clearButton").remove();
+        bookButton.disabled = false;
+    }
 }
 
 function clear() {
